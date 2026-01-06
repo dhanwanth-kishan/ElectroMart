@@ -1,0 +1,68 @@
+{%extends 'dashboard.html'%}
+{%block content%}
+<html>
+    <head></head>
+    <body>
+        <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title ">Add Product</h4>
+                    <form class="forms-sample" method="post" action="{%url 'save_product'%}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <div class="form-group mt-2">
+                      <label for="exampleFormControlSelect2">Category</label>
+                      <select class="form-control" name="category_name" >
+                        <option>Select a Category</option>
+                        {%for i in categories%}
+                        <option>{{i.Category_Name}}</option>
+                        {%endfor%}
+                        
+                      </select>
+                    </div>
+                    
+
+
+                        <div class="form-group">
+                        <label for="exampleInputEmail1">Product Name</label>
+                        <input type="text" class="form-control" name="product_name" placeholder="Product Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Price</label>
+                        <input type="number" class="form-control" name="price" placeholder="Price">
+                      </div>
+
+         
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Short Description</label>
+                        <textarea class="form-control" name="short_description" placeholder="Short Description"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Detailed Description</label>
+                        <textarea class="form-control" name="detailed_description" placeholder="Detailed Description"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Brand</label>
+                        <input type="text" class="form-control" name="brand" placeholder="Brand">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputUsername1">Product Image 1</label>
+                        <input type="file" class="form-control" name="product_image1" >
+                      </div>
+                       <div class="form-group">
+                        <label for="exampleInputUsername1">Product Image 2</label>
+                        <input type="file" class="form-control" name="product_image2" >
+                      </div>
+                       <div class="form-group">
+                        <label for="exampleInputUsername1">Product Image 3</label>
+                        <input type="file" class="form-control" name="product_image3" >
+                      </div>
+                      
+                      
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      <button class="btn btn-dark">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+    </body>
+</html>
+{%endblock%}
