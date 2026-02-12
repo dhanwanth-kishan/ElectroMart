@@ -33,6 +33,7 @@
 
 <body>
 
+   
     <!-- Spinner Start -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -42,11 +43,7 @@
     </div>
     <!-- Spinner End -->
 
-
-    <!-- Topbar Start -->
-    
-     
-<div class="container-fluid px-5 d-none border-bottom d-lg-block">
+    <div class="container-fluid px-5 d-none border-bottom d-lg-block">
         <div class="row gx-0 align-items-center">
             <div class="col-lg-4 text-center text-lg-start mb-lg-0">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
@@ -54,7 +51,7 @@
                     <a href="{%url 'support'%}" class="text-muted mx-2"> Support</a><small> / </small>
                     <a href="{%url 'contact_us' %}" class="text-muted ms-2"> Contact</a>
                 </div>
-            </div>
+        </div>
             <div class="col-lg-4 text-center d-flex align-items-center justify-content-center">
              
                 <a href="{%url 'home_page'%}" class="text-muted"><h4>ElectroMart</h4></a>
@@ -72,10 +69,10 @@
                             <a href="#" class="dropdown-item"> Account</a>
                             <a href="{%url 'logout_fn'%}" class="dropdown-item"> Log Out</a>
                             {%else%} 
-                            <a href="#" class="dropdown-item"> Welcome to ElectroMart</a>
+                            <a href="#" class="dropdown-item"> welcome to ElectroMart</a>
                             <a href="{%url 'signin_signup'%}" class="dropdown-item"> Login/Register</a>
+                            {%endif%}
                         </div>
-                        {%endif%}
                     </div>
                 </div>
             </div>
@@ -105,15 +102,15 @@
                     </div>
                 </div>
             </div>
+            {%if request.session.username%}
             <div class="col-md-4 col-lg-3 text-center text-lg-end">
                 <div class="d-inline-flex align-items-center">
-                    <a href="{%url 'cart'%}" class="text-muted d-flex align-items-center justify-content-center me-3"><span
-                            class="rounded-circle btn-md-square border"><i class="fas fa-heart"></i></a>
-                    <a href="#" class="text-muted d-flex align-items-center justify-content-center"><span
+                    <a href="{%url 'cart'%}" class="text-muted d-flex align-items-center justify-content-center"><span
                             class="rounded-circle btn-md-square border"><i class="fas fa-shopping-cart"></i></span>
                        
                 </div>
             </div>
+            {%endif%}
         </div>
     </div>
     <!-- Topbar End -->
@@ -130,21 +127,18 @@
                     <div class="collapse navbar-collapse rounded-bottom" id="allCat">
                         <div class="navbar-nav ms-auto py-0">
                             <ul class="list-unstyled categories-bars">
-                               
-    {% for i in category %}
-        <li>
-            <a href="{% url 'filtered_products' cat_name=i.Category_Name %}"
-               class="dropdown-item">
-                {{ i.Category_Name }}
-            </a>
-        </li>
-    {% endfor %}
-</ul>
+                               <li>
 
+                                   
+                                   {%for i in category%}
+                                   <a href="{%url 'filtered_products' cat_name=i.Category_Name%}" class="dropdown-item">{{i.Category_Name}}</a>
+                                   {%endfor%}
+                                </li>
                                
                               
 
 
+                            </ul>
                         </div>
                     </div>
                 </nav>
@@ -160,21 +154,6 @@
                         data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars fa-1x"></span>
                     </button>
-                    <div class="nav-item dropdown d-block d-lg-none mb-3">
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">All Category</a>
-                                <div class="dropdown-menu m-0">
-                                    <ul class="list-unstyled categories-bars">
-                                        {%for i in category%}
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="{%url 'filtered_products' cat_name=i.Category_Name%}">{{i.Category_Name}}</a>
-                                            </div>
-                                        </li>
-                                        {%endfor%}
-                                        
-                                    </ul>
-                                </div>
-                            </div>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav ms-auto py-0">
                             <a href="{%url 'home_page'%}" class="nav-item nav-link ">Home</a>
@@ -189,24 +168,84 @@
                                 </div>
                             </div>
                             <a href="{%url 'about_us'%}" class="nav-item nav-link me-2">About</a>
-                            
+                            <div class="nav-item dropdown d-block d-lg-none mb-3">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">All Category</a>
+                                <div class="dropdown-menu m-0">
+                                    <ul class="list-unstyled categories-bars">
+                                        {%for i in category%}
+                                        <li>
+                                            <div class="categories-bars-item">
+                                                <a href="#">{{i.Category_Name}}</a>
+                                            </div>
+                                        </li>
+                                        {%endfor%}
+                                        
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                       </div>
                 </nav>
             </div>
         </div>
     </div>
-    <!-- Nav-->
     <!-- Navbar & Hero End -->
 
-    <!-- Single Page Header start -->
-    <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Shop </h1>
-        <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Pages</a></li>
-            <li class="breadcrumb-item active text-white">Shop</li>
-        </ol>
+    <!-- Carousel Start -->
+    <div class="container-fluid carousel bg-light px-0">
+        <div class="row g-0 justify-content-end">
+            <div class="col-12 col-lg-7 col-xl-9">
+                <div class="header-carousel owl-carousel bg-light py-5">
+                    <div class="row g-0 header-carousel-item align-items-center">
+                        <div class="col-xl-6 carousel-img wow fadeInLeft" data-wow-delay="0.1s">
+                            <img src="{% static 'home/img/carousel-1.png' %}" class="img-fluid w-100" alt="Image">
+                        </div>
+                        <div class="col-xl-6 carousel-content p-4">
+                            <h4 class="text-uppercase fw-bold mb-4 wow fadeInRight" data-wow-delay="0.1s"
+                                style="letter-spacing: 3px;">Save Up To A $400</h4>
+                            <h1 class="display-3 text-capitalize mb-4 wow fadeInRight" data-wow-delay="0.3s">On Selected
+                                Laptops & Desktop Or Smartphone</h1>
+                            <p class="text-dark wow fadeInRight" data-wow-delay="0.5s">Terms and Condition Apply</p>
+                            <a class="btn btn-primary rounded-pill py-3 px-5 wow fadeInRight" data-wow-delay="0.7s"
+                                href="#">Shop Now</a>
+                        </div>
+                    </div>
+                    <div class="row g-0 header-carousel-item align-items-center">
+                        <div class="col-xl-6 carousel-img wow fadeInLeft" data-wow-delay="0.1s">
+                            <img src="{% static 'home/img/carousel-2.png' %}" class="img-fluid w-100" alt="Image">
+                        </div>
+                        <div class="col-xl-6 carousel-content p-4">
+                            <h4 class="text-uppercase fw-bold mb-4 wow fadeInRight" data-wow-delay="0.1s"
+                                style="letter-spacing: 3px;">Save Up To A $200</h4>
+                            <h1 class="display-3 text-capitalize mb-4 wow fadeInRight" data-wow-delay="0.3s">On Selected
+                                Laptops & Desktop Or Smartphone</h1>
+                            <p class="text-dark wow fadeInRight" data-wow-delay="0.5s">Terms and Condition Apply</p>
+                            <a class="btn btn-primary rounded-pill py-3 px-5 wow fadeInRight" data-wow-delay="0.7s"
+                                href="#">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-5 col-xl-3 wow fadeInRight" data-wow-delay="0.1s">
+                <div class="carousel-header-banner h-100">
+                    <img src="{% static 'home/img/header-img.jpg' %}" class="img-fluid w-100 h-100" style="object-fit: cover;" alt="Image">
+                    <div class="carousel-banner-offer">
+                        <p class="bg-primary text-white rounded fs-5 py-2 px-4 mb-0 me-3">Save $48.00</p>
+                        <p class="text-primary fs-5 fw-bold mb-0">Special Offer</p>
+                    </div>
+                    <div class="carousel-banner">
+                        <div class="carousel-banner-content text-center p-4">
+                            <a href="#" class="d-block mb-2">SmartPhone</a>
+                            <a href="#" class="d-block text-white fs-3">Apple iPad Mini <br> G2356</a>
+                            <del class="me-2 text-white fs-5">$1,250.00</del>
+                            <span class="text-primary fs-5">$1,050.00</span>
+                        </div>
+                        <a href="#" class="btn btn-primary rounded-pill py-2 px-4"><i
+                                class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Single Page Header End -->
 
@@ -342,114 +381,25 @@
                         <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
                         <div class=""></div>
                     </div>
-                    <div class="product-color mb-3">
-                        <h4>Select By Color</h4>
-                        <ul class="list-unstyled">
-                            <li>
-                                <div class="product-color-item">
-                                    <a href="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
-                                        Gold</a>
-                                    <span>(1)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="product-color-item">
-                                    <a href="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
-                                        Green</a>
-                                    <span>(1)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="product-color-item">
-                                    <a href="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
-                                        White</a>
-                                    <span>(1)</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="additional-product mb-4">
-                        <h4>Additional Products</h4>
-                        <div class="additional-product-item">
-                            <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                            <label for="Categories-1" class="text-dark"> Accessories</label>
-                        </div>
-                        <div class="additional-product-item">
-                            <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                            <label for="Categories-2" class="text-dark"> Electronics & Computer</label>
-                        </div>
-                        <div class="additional-product-item">
-                            <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                            <label for="Categories-3" class="text-dark"> Laptops & Desktops</label>
-                        </div>
-                        <div class="additional-product-item">
-                            <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                            <label for="Categories-4" class="text-dark"> Mobiles & Tablets</label>
-                        </div>
-                        <div class="additional-product-item">
-                            <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                            <label for="Categories-5" class="text-dark"> SmartPhone & Smart TV</label>
-                        </div>
-                    </div>
+                   
                     <div class="featured-product mb-4">
                         <h4 class="mb-3">Featured products</h4>
+                        {%for i in latest%}
                         <div class="featured-product-item">
                             <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="{% static 'home/img/product-3.png'%}" class="img-fluid rounded" alt="Image">
+                                <img src="{{i.Product_Image1.url}}" class="img-fluid rounded" alt="Image">
                             </div>
                             <div>
-                                <h6 class="mb-2">SmartPhone</h6>
+                                <h6 class="mb-2">{{i.Product_Name}}</h6>
+                                
                                 <div class="d-flex mb-2">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                    <h5 class="fw-bold me-2">Rs {{i.Price}}</h5>
                                 </div>
                             </div>
+                            
                         </div>
-                        <div class="featured-product-item">
-                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="{%static 'home/img/product-4.png'%}" class="img-fluid rounded" alt="Image">
-                            </div>
-                            <div>
-                                <h6 class="mb-2">Smart Camera</h6>
-                                <div class="d-flex mb-2">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="featured-product-item">
-                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="{% static 'home/img/product-5.png'%}" class="img-fluid rounded" alt="Image">
-                            </div>
-                            <div>
-                                <h6 class="mb-2">Camera Leance</h6>
-                                <div class="d-flex mb-2">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="d-flex mb-2">
-                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                </div>
-                            </div>
-                        </div>
+                        {%endfor%}
+                        
                         <div class="d-flex justify-content-center my-4">
                             <a href="#" class="btn btn-primary px-4 py-3 rounded-pill w-100">Vew More</a>
                         </div>

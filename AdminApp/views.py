@@ -1,11 +1,14 @@
 from django.shortcuts import render,redirect
 from AdminApp.models import *
 
+from django.contrib import messages
+
 from django.core.files.storage import FileSystemStorage
 from django.utils.datastructures import MultiValueDictKeyError
 
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.models import User
+from WebApp.models import *
 
 
 from WebApp.models import *
@@ -19,6 +22,7 @@ def dashboard(request):
 
 def add_categories(request):
     return render(request,'add-categories.html')
+
 def save_category(request):
     if request.method=="POST":
         name=request.POST.get('category_name')
@@ -26,6 +30,7 @@ def save_category(request):
         image=request.FILES['category_image']
         obj1=CategoryData(Category_Image=image,Category_Name=name,Category_Description=description)
         obj1.save()
+        messages.success(request,'Category saved successfully')
         return redirect(display_categories)
 
 def display_categories(request):
@@ -46,15 +51,20 @@ def update_category(request,category_id):
         except MultiValueDictKeyError:
             file=CategoryData.objects.get(id=category_id).Category_Image
         CategoryData.objects.filter(id=category_id).update(Category_Image=file,Category_Name=name,Category_Description=description)
+        messages.success(request,'Category updated successfully')
         return redirect(display_categories)
 
 def delete_category(request,category_id):
     data=CategoryData.objects.filter(id=category_id)
     data.delete()
+
+    messages.success(request,'Category deleted successfully')
     return redirect(display_categories)
 
 def add_product(request):
     categories=CategoryData.objects.all()
+
+
     return render(request,'add-products.html',{'categories':categories})
 
 
@@ -71,6 +81,8 @@ def save_product(request):
         image3=request.FILES['product_image3']
         obj2=ProductData(CategoryName=category_name,Product_Name=product_name,Price=price,Brand=brand,Short_Description=short_description,Detailed_Description=detailed_description,Product_Image1=image1,Product_Image2=image2,Product_Image3=image3)
         obj2.save()
+        messages.success(request,'Product added successfully')
+
         return redirect(display_products)
     
 def display_products(request):
@@ -79,6 +91,7 @@ def display_products(request):
 def edit_product(request,product_id):
     categories=CategoryData.objects.all()
     product=ProductData.objects.get(id=product_id)
+
     return render(request,'edit-product.html',{'product':product,'categories':categories})
 def update_product(request,product_id):
     if request.method=="POST":
@@ -114,11 +127,15 @@ def update_product(request,product_id):
                                                          Detailed_Description=detailed_description,
                                                          Product_Image1=file1,Product_Image2=file2,
                                                          Product_Image3=file3)
+        messages.success(request,'Product updated successfully')
         return redirect(display_products)
     
 def delete_product(request,product_id):
     data=ProductData.objects.filter(id=product_id)
     data.delete()
+
+    messages.success(request,'Product deleted successfully')
+    
     return redirect(display_products)
         
 def login_page(request):
@@ -133,10 +150,13 @@ def login_fn(request):
                 login(request,data)
                 request.session['username']=uname
                 request.session['password']=pswd
+                messages.success(request,"Successfully Logged in to AdminApp")
                 return redirect(dashboard)
             else:
+                messages.error(request,"Invalid credentials")
                 return redirect(login_page)
         else:
+            messages.error(request,"Username does not exist..!")
             return redirect(login_page)
 def logout_fn(request):
     del request.session['username']
@@ -149,3 +169,10 @@ def contact_details(request):
     return render(request,'contact-details.html',{'data':data})
 
 
+def order_details(request):
+    bill=BillingData.objects.all()
+    return render(request,'order-details.html',{'bill':bill})
+
+def cart_details(request):
+    cart=CartData.objects.all()
+    return render(request,'cart-details.html',{'cart':cart})

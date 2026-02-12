@@ -36,6 +36,8 @@
 <body>
 
     <!-- Spinner Start -->
+   
+    <!-- Spinner Start -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -44,9 +46,6 @@
     </div>
     <!-- Spinner End -->
 
-
-    <!-- Topbar Start -->
-    
     <div class="container-fluid px-5 d-none border-bottom d-lg-block">
         <div class="row gx-0 align-items-center">
             <div class="col-lg-4 text-center text-lg-start mb-lg-0">
@@ -106,11 +105,10 @@
                     </div>
                 </div>
             </div>
+            {%if request.session.username%}
             <div class="col-md-4 col-lg-3 text-center text-lg-end">
                 <div class="d-inline-flex align-items-center">
-                    <a href="{%url 'cart'%}" class="text-muted d-flex align-items-center justify-content-center me-3"><span
-                            class="rounded-circle btn-md-square border"><i class="fas fa-heart"></i></a>
-                    <a href="#" class="text-muted d-flex align-items-center justify-content-center"><span
+                    <a href="{%url 'cart'%}" class="text-muted d-flex align-items-center justify-content-center"><span
                             class="rounded-circle btn-md-square border"><i class="fas fa-shopping-cart"></i></span>
                        
                 </div>
@@ -195,16 +193,8 @@
     </div>
     <!-- Navbar & Hero End -->
 
-    <!-- Single Page Header start -->
-    <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Cheackout Page</h1>
-        <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Pages</a></li>
-            <li class="breadcrumb-item active text-white">Cheackout</li>
-        </ol>
-    </div>
-    <!-- Single Page Header End -->
+    <!-- Carousel Start -->
+    e Page Header End -->
 
     <!-- Searvices Start -->
     <div class="container-fluid px-0">
@@ -284,66 +274,52 @@
     <div class="container-fluid bg-light overflow-hidden py-5">
         <div class="container py-5">
             <h1 class="mb-4 wow fadeInUp" data-wow-delay="0.1s">Billing details</h1>
-            <form action="#">
+            <form method="post" action="{% url 'save_billing_data' %}">
+                {%csrf_token%}
                 <div class="row g-5">
                     <div class="col-md-12 col-lg-6 col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="row">
                             <div class="col-md-12 col-lg-6">
                                 <div class="form-item w-100">
-                                    <label class="form-label my-3">First Name<sup>*</sup></label>
-                                    <input type="text" class="form-control">
+                                    <label class="form-label my-3">Full Name<sup>*</sup></label>
+                                    <input type="text" name="fname" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-12 col-lg-6">
-                                <div class="form-item w-100">
-                                    <label class="form-label my-3">Last Name<sup>*</sup></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-item">
-                            <label class="form-label my-3">Company Name<sup>*</sup></label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-item">
-                            <label class="form-label my-3">Address <sup>*</sup></label>
-                            <input type="text" class="form-control" placeholder="House Number Street Name">
-                        </div>
-                        <div class="form-item">
-                            <label class="form-label my-3">Town/City<sup>*</sup></label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-item">
-                            <label class="form-label my-3">Country<sup>*</sup></label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-item">
-                            <label class="form-label my-3">Postcode/Zip<sup>*</sup></label>
-                            <input type="text" class="form-control">
+                            <div class="form-item">
+                            <label class="form-label my-3">Email Address<sup>*</sup></label>
+                            <input type="email" name="email" class="form-control">
                         </div>
                         <div class="form-item">
                             <label class="form-label my-3">Mobile<sup>*</sup></label>
-                            <input type="tel" class="form-control">
+                            <input type="tel" name="mobile" class="form-control">
+                        </div>
+                            
+                        </div>
+                       <div class="form-item">
+                            <label class="form-label my-3">Place<sup>*</sup></label>
+                            <input type="text" name="place" class="form-control">
+                        </div>
+                        
+                        
+                        <div class="form-item">
+                            <label class="form-label my-3">Postcode/Zip<sup>*</sup></label>
+                            <input type="text" name= "pincode" class="form-control">
                         </div>
                         <div class="form-item">
-                            <label class="form-label my-3">Email Address<sup>*</sup></label>
-                            <input type="email" class="form-control">
-                        </div>
-                        <div class="form-check my-3">
-                            <input type="checkbox" class="form-check-input" id="Account-1" name="Accounts"
-                                value="Accounts">
-                            <label class="form-check-label" for="Account-1">Create an account?</label>
-                        </div>
-                        <hr>
-                        <div class="form-check my-3">
-                            <input class="form-check-input" type="checkbox" id="Address-1" name="Address"
-                                value="Address">
-                            <label class="form-check-label" for="Address-1">Ship to a different address?</label>
+                            <label class="form-label my-3">Message<sup>*</sup></label>
+                            <input type="text" name="message" class="form-control">
                         </div>
                         <div class="form-item">
-                            <textarea name="text" class="form-control" spellcheck="false" cols="30" rows="11"
-                                placeholder="Oreder Notes (Optional)"></textarea>
+                            <label class="form-label my-3">Total Amount<sup>*</sup></label>
+                            <input type="number" name="total" value={{total_amount}} class="form-control">
                         </div>
+
+                        <div class="form-item">
+                            <label class="form-label my-3">Username<sup>*</sup></label>
+                            <input type="text" name="uname" value="{{request.session.username}}" class="form-control">
+                        </div>
+                        
+                      
                     </div>
                     <div class="col-md-12 col-lg-6 col-xl-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="table-responsive">
@@ -351,156 +327,45 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th scope="col" class="text-start">Name</th>
-                                        <th scope="col">Model</th>
+                                        <th scope="col">User</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Total</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                               <tbody>
+                                {%for i in cart%}
                                     <tr class="text-center">
                                         <th scope="row" class="text-start py-4">
-                                            Apple iPad Mini
+                                            {{i.product_name}}
                                         </th>
-                                        <td class="py-4">G2356</td>
-                                        <td class="py-4">$269.00</td>
-                                        <td class="py-4 text-center">2</td>
-                                        <td class="py-4">$538.00</td>
+                                        <td class="py-4">{{i.username}}</td>
+                                        <td class="py-4">{{i.price}}</td>
+                                        <td class="py-4 text-center">{{i.qty}}</td>
+                                        <td class="py-4">{{i.total}}</td>
+                                        {%endfor%}
                                     </tr>
-                                    <tr class="text-center">
-                                        <th scope="row" class="text-start py-4">
-                                            Apple iPad Mini
-                                        </th>
-                                        <td class="py-4">G2356</td>
-                                        <td class="py-4">$269.00</td>
-                                        <td class="py-4">2</td>
-                                        <td class="py-4">$538.00</td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <th scope="row" class="text-start py-4">
-                                            Apple iPad Mini
-                                        </th>
-                                        <td class="py-4">G2356</td>
-                                        <td class="py-4">$269.00</td>
-                                        <td class="py-4">2</td>
-                                        <td class="py-4">$538.00</td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <th scope="row" class="text-start py-4">
-                                            Apple iPad Mini
-                                        </th>
-                                        <td class="py-4">G2356</td>
-                                        <td class="py-4">$269.00</td>
-                                        <td class="py-4">2</td>
-                                        <td class="py-4">$538.00</td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <th scope="row" class="text-start py-4">
-                                            Apple iPad Mini
-                                        </th>
-                                        <td class="py-4">G2356</td>
-                                        <td class="py-4">$269.00</td>
-                                        <td class="py-4">2</td>
-                                        <td class="py-4">$538.00</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                        </th>
-                                        <td class="py-4"></td>
-                                        <td class="py-4"></td>
-                                        <td class="py-4">
-                                            <p class="mb-0 text-dark py-2">Subtotal</p>
-                                        </td>
-                                        <td class="py-4">
-                                            <div class="py-2 text-center border-bottom border-top">
-                                                <p class="mb-0 text-dark">$1134.00</p>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                   
                                     <tr>
                                         <th scope="row">
                                         </th>
                                         <td class="py-4">
-                                            <p class="mb-0 text-dark py-4">Shipping</p>
-                                        </td>
-                                        <td colspan="3" class="py-4">
-                                            <div class="form-check text-start">
-                                                <input type="checkbox" class="form-check-input bg-primary border-0"
-                                                    id="Shipping-1" name="Shipping-1" value="Shipping">
-                                                <label class="form-check-label" for="Shipping-1">Free Shipping</label>
-                                            </div>
-                                            <div class="form-check text-start">
-                                                <input type="checkbox" class="form-check-input bg-primary border-0"
-                                                    id="Shipping-2" name="Shipping-1" value="Shipping">
-                                                <label class="form-check-label" for="Shipping-2">Flat rate:
-                                                    $15.00</label>
-                                            </div>
-                                            <div class="form-check text-start">
-                                                <input type="checkbox" class="form-check-input bg-primary border-0"
-                                                    id="Shipping-3" name="Shipping-1" value="Shipping">
-                                                <label class="form-check-label" for="Shipping-3">Local Pickup:
-                                                    $8.00</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">
-                                        </th>
-                                        <td class="py-4">
-                                            <p class="mb-0 text-dark text-uppercase py-2">TOTAL</p>
+                                            <p class="mb-0 text-dark text-uppercase py-2">TOTAL PAYABLE</p>
                                         </td>
                                         <td class="py-4"></td>
                                         <td class="py-4"></td>
                                         <td class="py-4">
                                             <div class="py-2 text-center border-bottom border-top">
-                                                <p class="mb-0 text-dark">$135.00</p>
+                                                <p class="mb-0 text-dark">{{total_amount}}</p>
                                             </div>
                                         </td>
                                     </tr>
+                                   
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row g-0 text-center align-items-center justify-content-center border-bottom py-2">
-                            <div class="col-12">
-                                <div class="form-check text-start my-2">
-                                    <input type="checkbox" class="form-check-input bg-primary border-0" id="Transfer-1"
-                                        name="Transfer" value="Transfer">
-                                    <label class="form-check-label" for="Transfer-1">Direct Bank Transfer</label>
-                                </div>
-                                <p class="text-start text-dark">Make your payment directly into our bank account. Please
-                                    use your Order ID as the payment reference. Your order will not be shipped until the
-                                    funds have cleared in our account.</p>
-                            </div>
-                        </div>
-                        <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-2">
-                            <div class="col-12">
-                                <div class="form-check text-start my-2">
-                                    <input type="checkbox" class="form-check-input bg-primary border-0" id="Payments-1"
-                                        name="Payments" value="Payments">
-                                    <label class="form-check-label" for="Payments-1">Check Payments</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-2">
-                            <div class="col-12">
-                                <div class="form-check text-start my-2">
-                                    <input type="checkbox" class="form-check-input bg-primary border-0" id="Delivery-1"
-                                        name="Delivery" value="Delivery">
-                                    <label class="form-check-label" for="Delivery-1">Cash On Delivery</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-2">
-                            <div class="col-12">
-                                <div class="form-check text-start my-2">
-                                    <input type="checkbox" class="form-check-input bg-primary border-0" id="Paypal-1"
-                                        name="Paypal" value="Paypal">
-                                    <label class="form-check-label" for="Paypal-1">Paypal</label>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row g-4 text-center align-items-center justify-content-center pt-4">
-                            <button type="button"
+                            <button type="submit"
                                 class="btn btn-primary border-secondary py-3 px-4 text-uppercase w-100 text-primary">Place
                                 Order</button>
                         </div>

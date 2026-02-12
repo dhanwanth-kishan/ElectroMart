@@ -36,6 +36,8 @@
 <body>
 
     <!-- Spinner Start -->
+    
+    <!-- Spinner Start -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -44,10 +46,7 @@
     </div>
     <!-- Spinner End -->
 
-
-    <!-- Topbar Start -->
-    
-   <div class="container-fluid px-5 d-none border-bottom d-lg-block">
+    <div class="container-fluid px-5 d-none border-bottom d-lg-block">
         <div class="row gx-0 align-items-center">
             <div class="col-lg-4 text-center text-lg-start mb-lg-0">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
@@ -108,9 +107,7 @@
             </div>
             <div class="col-md-4 col-lg-3 text-center text-lg-end">
                 <div class="d-inline-flex align-items-center">
-                    <a href="#" class="text-muted d-flex align-items-center justify-content-center me-3"><span
-                            class="rounded-circle btn-md-square border"><i class="fas fa-heart"></i></a>
-                    <a href="#" class="text-muted d-flex align-items-center justify-content-center"><span
+                    <a href="{%url 'cart'%}" class="text-muted d-flex align-items-center justify-content-center"><span
                             class="rounded-circle btn-md-square border"><i class="fas fa-shopping-cart"></i></span>
                        
                 </div>
@@ -160,7 +157,7 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav ms-auto py-0">
-                            <a href="{%url 'home_page'%}" class="nav-item nav-link active">Home</a>
+                            <a href="{%url 'home_page'%}" class="nav-item nav-link ">Home</a>
                             <a href="{%url 'all_products'%}" class="nav-item nav-link">Shop</a>
                             
                             <div class="nav-item dropdown">
@@ -195,6 +192,10 @@
     </div>
     <!-- Navbar & Hero End -->
 
+    <!-- Carousel Start -->
+    
+    <!-- Navbar & Hero End -->
+
     <!-- Single Page Header start -->
     <div class="container-fluid page-header py-5">
         <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Cart Page</h1>
@@ -214,7 +215,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Model</th>
+                            <th scope="col">User</th>
                             <th scope="col">Price</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Total</th>
@@ -222,16 +223,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {%for i in cart%}
                         <tr>
                             <th scope="row">
-                                <p class="mb-0 py-4">Apple iPad Mini</p>
+                                <p class="mb-0 py-4">{{i.product_name}}</p>
                             </th>
-                            <td>
-                                <p class="mb-0 py-4">G2356</p>
+                             <td>
+                                <p class="mb-0 py-4">{{i.username}}</p>
                             </td>
                             <td>
-                                <p class="mb-0 py-4">2.99 $</p>
+                                <p class="mb-0 py-4">{{i.price}}</p>
                             </td>
+
+                            
                             <td>
                                 <div class="input-group quantity py-4" style="width: 100px;">
                                     <div class="input-group-btn">
@@ -240,7 +244,7 @@
                                         </button>
                                     </div>
                                     <input type="text" class="form-control form-control-sm text-center border-0"
-                                        value="1">
+                                        value={{i.qty}}>
                                     <div class="input-group-btn">
                                         <button class="btn btn-sm btn-plus rounded-circle bg-light border">
                                             <i class="fa fa-plus"></i>
@@ -249,91 +253,20 @@
                                 </div>
                             </td>
                             <td>
-                                <p class="mb-0 py-4">2.99 $</p>
+                                <p class="mb-0 py-4">{{i.total}}</p>
                             </td>
-                            <td class="py-4">
-                                <button class="btn btn-md rounded-circle bg-light border">
+                               <td class="py-4">
+                                <a href="{%url 'delete'%}" class="btn btn-md rounded-circle bg-light border">
                                     <i class="fa fa-times text-danger"></i>
-                                </button>
+                                </a>
                             </td>
+                            {%endfor%}
                         </tr>
-                        <tr>
-                            <th scope="row">
-                                <p class="mb-0 py-4">Apple iPad Mini</p>
-                            </th>
-                            <td>
-                                <p class="mb-0 py-4">G2356</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">2.99 $</p>
-                            </td>
-                            <td>
-                                <div class="input-group quantity py-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0"
-                                        value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">2.99 $</p>
-                            </td>
-                            <td class="py-4">
-                                <button class="btn btn-md rounded-circle bg-light border">
-                                    <i class="fa fa-times text-danger"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <p class="mb-0 py-4">Apple iPad Mini</p>
-                            </th>
-                            <td>
-                                <p class="mb-0 py-4">G2356</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">2.99 $</p>
-                            </td>
-                            <td>
-                                <div class="input-group quantity py-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0"
-                                        value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">2.99 $</p>
-                            </td>
-                            <td class="py-4">
-                                <button class="btn btn-md rounded-circle bg-light border">
-                                    <i class="fa fa-times text-danger"></i>
-                                </button>
-                            </td>
-                        </tr>
+                       
                     </tbody>
                 </table>
             </div>
-            <div class="mt-5">
-                <input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Coupon Code">
-                <button class="btn btn-primary rounded-pill px-4 py-3" type="button">Apply Coupon</button>
-            </div>
+          
             <div class="row g-4 justify-content-end">
                 <div class="col-8"></div>
                 <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
@@ -342,22 +275,21 @@
                             <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
                             <div class="d-flex justify-content-between mb-4">
                                 <h5 class="mb-0 me-4">Subtotal:</h5>
-                                <p class="mb-0">$96.00</p>
+                                <p class="mb-0">Rs {{sub_total}}</p>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h5 class="mb-0 me-4">Shipping</h5>
                                 <div>
-                                    <p class="mb-0">Flat rate: $3.00</p>
+                                    <p class="mb-0">Flat rate: {{shipping_charge}}</p>
                                 </div>
                             </div>
-                            <p class="mb-0 text-end">Shipping to Ukraine.</p>
                         </div>
                         <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                             <h5 class="mb-0 ps-4 me-4">Total</h5>
-                            <p class="mb-0 pe-4">$99.00</p>
+                            <p class="mb-0 pe-4">{{total_amount}}</p>
                         </div>
-                        <button class="btn btn-primary rounded-pill px-4 py-3 text-uppercase mb-4 ms-4"
-                            type="button">Proceed Checkout</button>
+                        <a href="{%url 'checkout'%}" class="btn btn-primary rounded-pill px-4 py-3 text-uppercase mb-4 ms-4"
+                            type="button">Proceed Checkout</a>
                     </div>
                 </div>
             </div>
@@ -512,6 +444,20 @@
 
     <!-- Template Javascript -->
     <script src="{%static 'home/js/main.js'%}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+    {% for message in messages %}
+        <script>
+            {% if "error" in message.tags %}
+                swal("Error", "{{ message }}", "error");
+            {% elif "success" in message.tags %}
+                swal("Success", "{{ message }}", "success");
+            {% endif %}
+        </script>
+    {% endfor %}
+{% endif %}
+  
+
 </body>
 
 </html>

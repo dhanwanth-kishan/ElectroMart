@@ -6,30 +6,31 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Categories</h4>
+                    <h4 class="card-title">Order Details</h4>
                     </p>
                     <div class="table-responsive">
                       <table class="table table-dark">
                         <thead>
                           <tr>
                           
-                              <th> Category Name </th>
-                              <th> Category Description </th>
-                              <th> Category Image </th>
-                            <th> Options </th>
+                              <th> Product Name </th>
+                              <th> Username </th>
+                              <th> Quantity </th>
+                            <th> Price </th>
+                            <th> Total </th>
+                           
                           
                           </tr>
                         </thead>
                         <tbody>
-                          {%for i in categories%}
+                          {%for i in cart%}
                             <tr>
-                              <td>{{i.Category_Name}}</td>
-                              <td>{{i.Category_Description}}</td>
-                              <td><img src="{{i.Category_Image.url}}"></td>
-                              <td>
-                                <a href="{%url 'edit_category' category_id=i.id%}"><button  type="button" class="btn btn-primary btn-rounded btn-fw">Edit</button></a>
-                                <a href="{%url 'delete_category' category_id=i.id%}"><button  type="button" class="btn btn-danger btn-rounded btn-fw">Delete</button></a>
-                              </td>
+                              <td>{{i.product_name}}</td>
+                              <td>{{i.username}}</td>
+                              <td>{{i.qty}}</td>
+                              <td>{{i.price}}</td>
+                              <td>{{i.total}}</td>
+                             
                            
                             </tr>
                             {%endfor%}

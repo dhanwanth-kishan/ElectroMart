@@ -262,5 +262,20 @@ form .btn input[type="submit"]{
       });
 
     </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            // Using "message.tags" directly or checking for "error"
+            {% if "error" in message.tags %}
+                swal("Error", "{{ message }}", "error");
+            {% elif "success" in message.tags %}
+                swal("Success", "{{ message }}", "success");
+            {% endif %}
+        </script>
+    {% endfor %}
+{% endif %}
+    
 </body>
   </html>
